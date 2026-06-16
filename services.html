@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services — Teija's Digital Support Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --forest: #1E2D1F; --moss: #3D5C35; --sage: #7A9966;
+      --linen: #E8E2D5; --clay: #C4A882; --ink: #141A13;
+      --fog: #F0EBE1; --dusk: #2A3828;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--fog); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: rgba(20,26,19,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(122,153,102,0.15); flex-wrap: nowrap; gap: 1rem; }
+    .nav-name { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 400; letter-spacing: 0.05em; color: var(--linen); text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: nowrap; }
+    .nav-links a { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage); text-decoration: none; transition: color 0.2s; white-space: nowrap; }
+    .nav-links a:hover { color: var(--linen); }
+    .nav-links a.active { color: var(--clay); }
+
+    /* PAGE HEADER */
+    .page-header { background: var(--dusk); padding: 10rem 3rem 6rem; position: relative; overflow: hidden; min-height: 40vh; display: flex; align-items: flex-end; }
+    .page-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(61,92,53,0.3) 0%, transparent 60%), radial-gradient(ellipse 40% 60% at 10% 80%, rgba(196,168,130,0.1) 0%, transparent 50%); }
+    .page-header-inner { max-width: 960px; margin: 0 auto; position: relative; width: 100%; }
+    .eyebrow { font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--clay); margin-bottom: 0.85rem; }
+    .page-header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 7vw, 5rem); font-weight: 300; color: var(--linen); line-height: 1.05; }
+    .page-header h1 em { font-style: italic; color: var(--sage); }
+
+    /* SECTIONS */
+    .port-section { padding: 5rem 3rem; }
+    .port-section.alt { background: var(--linen); }
+    .section-inner { max-width: 960px; margin: 0 auto; }
+
+    .section-label { font-size: 0.68rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--moss); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 1rem; }
+    .section-label::after { content: ''; display: block; height: 1px; width: 2.5rem; background: var(--sage); opacity: 0.4; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 300; color: var(--forest); line-height: 1.2; margin-bottom: 0.5rem; }
+    .section-desc { font-size: 0.88rem; color: #5a5a52; max-width: 52ch; line-height: 1.8; margin-bottom: 2.5rem; }
+
+    /* PACKAGES GRID */
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .package-card {
+      border: 1px solid rgba(61,92,53,0.1);
+      border-radius: 3px;
+      padding: 2.25rem 2rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+
+    .package-card:hover {
+      box-shadow: 0 6px 28px rgba(30,45,31,0.08);
+      transform: translateY(-3px);
+    }
+
+    .card-seedling { background: linear-gradient(160deg, #c8d8be 0%, #a8bf9a 100%); border-color: rgba(90,115,78,0.2); }
+    .card-growing  { background: linear-gradient(160deg, #a8bf9a 0%, #88a07a 100%); border-color: rgba(70,95,58,0.25); }
+    .card-blooming { background: linear-gradient(160deg, #88a07a 0%, #5c7850 100%); border-color: rgba(50,75,40,0.3); }
+
+    /* Seedling — dark text on lighter bg */
+    .card-seedling .package-price { color: var(--forest); }
+    .card-seedling .package-period { color: #4a5e40; }
+    .card-seedling .package-includes { color: var(--moss); }
+    .card-seedling .package-item { color: #2e3d28; }
+    .card-seedling .package-divider { background: rgba(61,92,53,0.15); }
+
+    /* Growing — mix of clay and forest */
+    .card-growing .package-price { color: var(--forest); }
+    .card-growing .package-period { color: #3a2a18; }
+    .card-growing .package-includes { color: var(--forest); }
+    .card-growing .package-item { color: #1e2d18; }
+    .card-growing .package-divider { background: rgba(196,168,130,0.25); }
+
+    /* Blooming — linen and clay on dark bg */
+    .card-blooming .package-price { color: var(--linen); }
+    .card-blooming .package-period { color: var(--clay); }
+    .card-blooming .package-includes { color: var(--clay); }
+    .card-blooming .package-item { color: rgba(232,226,213,0.85); }
+    .card-blooming .package-divider { background: rgba(196,168,130,0.2); }
+
+    /* Badge and CTA adjustments */
+    .card-blooming .badge-blooming { color: var(--linen); background: rgba(232,226,213,0.1); border-color: rgba(232,226,213,0.25); }
+    .card-blooming .package-cta-blooming { background: transparent; color: var(--linen); border: 1px solid rgba(232,226,213,0.6); font-weight: 500; }
+    .card-blooming .package-cta-blooming:hover { background: rgba(232,226,213,0.15); border-color: var(--linen); }
+
+
+    .package-badge {
+      display: inline-block;
+      padding: 0.5rem 1.35rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 99px;
+      margin-bottom: 1.5rem;
+      width: fit-content;
+    }
+    /* Seedling — pale sage */
+    .badge-seedling {
+      color: #4a7a3a;
+      background: rgba(143,180,122,0.12);
+      border: 1px solid rgba(143,180,122,0.35);
+    }
+    /* Growing — medium moss */
+    .badge-growing {
+      color: #2d5a24;
+      background: rgba(80,130,60,0.16);
+      border: 1px solid rgba(80,130,60,0.4);
+    }
+    /* Blooming — deep forest */
+    .badge-blooming {
+      color: var(--forest);
+      background: rgba(61,92,53,0.15);
+      border: 1px solid rgba(61,92,53,0.35);
+    }
+
+    .package-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.6rem;
+      font-weight: 400;
+      color: var(--forest);
+      margin-bottom: 0.2rem;
+      line-height: 1;
+    }
+
+    .package-card.featured .package-price { color: var(--linen); }
+
+    .package-period {
+      font-size: 0.78rem;
+      color: #5a5a52;
+      margin-bottom: 1.75rem;
+    }
+
+    .package-card.featured .package-period { color: rgba(232,226,213,0.55); }
+
+    .package-divider {
+      height: 1px;
+      background: rgba(61,92,53,0.1);
+      margin-bottom: 1.5rem;
+    }
+
+    .package-card.featured .package-divider { background: rgba(122,153,102,0.2); }
+
+    .package-includes {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--moss);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .package-card.featured .package-includes { color: var(--sage); }
+
+    .package-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      flex: 1;
+    }
+
+    .package-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.92rem;
+      color: #252520;
+      line-height: 1.55;
+    }
+
+    .package-card.featured .package-item { color: rgba(232,226,213,0.8); }
+
+    .package-item::before {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--sage);
+      margin-top: 0.55rem;
+      flex-shrink: 0;
+    }
+
+    .package-cta {
+      margin-top: 2rem;
+      display: block;
+      text-align: center;
+      padding: 0.8rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.25s;
+    }
+
+    .package-cta-seedling { color: var(--forest); border: 1px solid rgba(30,45,31,0.5); font-weight: 500; }
+    .package-cta-seedling:hover { background: var(--forest); color: var(--linen); }
+    .package-cta-growing  { color: var(--forest); border: 1px solid rgba(30,45,31,0.6); font-weight: 500; }
+    .package-cta-growing:hover  { background: var(--forest); color: var(--linen); }
+    .package-cta-blooming { background: var(--forest); color: var(--linen); border: 1px solid var(--forest); }
+    .package-cta-blooming:hover { background: var(--moss); border-color: var(--moss); }
+
+    
+
+    /* À LA CARTE TABLE */
+    .alacarte-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid rgba(61,92,53,0.12);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 2.5rem;
+    }
+    .alacarte-table thead tr th {
+      padding-bottom: 2.25rem;
+      position: relative;
+    }
+    .alacarte-table thead tr th::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1.2rem;
+      background: #F0EBE1;
+    }
+
+    .alacarte-table thead tr {
+      background: linear-gradient(90deg, #556b45 0%, #96b07e 100%);
+    }
+
+    .alacarte-table thead th {
+      padding: 1.25rem 1.5rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--linen);
+      font-weight: 500;
+      text-align: left;
+    }
+
+    .alacarte-table thead th:last-child { text-align: right; }
+
+    .alacarte-table .cat-row td {
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(90deg, #556b45 0%, #96b07e 100%);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(232,226,213,0.92);
+      font-weight: 500;
+      border-top: 1px solid rgba(61,92,53,0.1);
+      border-bottom: 1px solid rgba(61,92,53,0.1);
+    }
+
+    .alacarte-table .cat-social td,
+    .alacarte-table .cat-graphic td,
+    .alacarte-table .cat-web td { background: linear-gradient(90deg, #556b45 0%, #96b07e 100%); color: rgba(232,226,213,0.92); }
+
+    .alacarte-table tbody tr {
+      border-bottom: 1px solid rgba(61,92,53,0.07);
+      transition: background 0.15s;
+    }
+
+    .alacarte-table tbody tr:last-child { border-bottom: none; }
+    .alacarte-table tbody tr:not(.cat-row):hover { background: rgba(122,153,102,0.05); }
+
+    .alacarte-table tbody td {
+      padding: 0.9rem 1.5rem;
+      font-size: 0.92rem;
+      color: #3a3a35;
+    }
+
+    .alacarte-table tbody td.price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      color: var(--forest);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    /* BOTTOM CTA */
+    .bottom-cta { background: var(--forest); padding: 6rem 3rem; text-align: center; }
+    .bottom-cta h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; color: var(--linen); line-height: 1.2; margin-bottom: 1rem; }
+    .bottom-cta h2 em { font-style: italic; color: var(--clay); }
+    .bottom-cta p { font-size: 0.92rem; color: rgba(232,226,213,0.6); max-width: 42ch; margin: 0 auto 2.5rem; line-height: 1.85; }
+    .btn { display: inline-block; padding: 0.9rem 2.25rem; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; border-radius: 1px; transition: all 0.25s; }
+    .btn-primary { background: var(--clay); color: var(--ink); border: 1px solid var(--clay); }
+    .btn-primary:hover { background: transparent; color: var(--clay); }
+
+    /* FOOTER */
+    footer { background: var(--ink); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 0.8rem; color: rgba(122,153,102,0.7); letter-spacing: 0.05em; }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 768px) {
+      nav { padding: 0.85rem 1.25rem; } .nav-links { gap: 0.85rem; } .nav-name { font-size: 0.82rem; } .nav-links a { font-size: 0.62rem; }
+      .page-header { padding: 6.5rem 1.5rem 3.5rem; }
+      .port-section { padding: 4rem 1.5rem; }
+      .packages-grid { grid-template-columns: 1fr; }
+      .alacarte-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-name" href="teija-portfolio.html">Teija's Digital Support Space</a>
+  <ul class="nav-links">
+    <li><a href="teija-portfolio.html#about">About</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="work-with-me.html">Work With Me</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <p class="eyebrow">Services & Rates</p>
+    <h1>Creative support that <em>feels like you.</em></h1>
+  </div>
+</div>
+
+<!-- PACKAGES -->
+<section class="port-section">
+  <div class="section-inner">
+    <p class="section-label reveal">Packages</p>
+    <h2 class="section-title reveal">Find your fit</h2>
+    <p class="section-desc reveal">Three tiers designed to grow with you — start where you are and build from there.</p>
+
+    <div class="packages-grid reveal">
+
+      <!-- SEEDLING -->
+      <div class="package-card card-seedling">
+        <span class="package-badge badge-seedling">Seedling</span>
+        <p class="package-price">$250</p>
+        <p class="package-period">per month</p>
+        <div class="package-divider"></div>
+        <p class="package-includes">What's included</p>
+        <div class="package-items">
+          <div class="package-item">Social media management — 1 platform</div>
+          <div class="package-item">2–3 custom graphics per month</div>
+          <div class="package-item">Captions, scheduling & posting</div>
+          <div class="package-item">Light monthly analytics</div>
+        </div>
+        <a href="work-with-me.html" class="package-cta package-cta-seedling">Get Started →</a>
+      </div>
+
+      <!-- GROWING -->
+      <div class="package-card card-growing">
+        <span class="package-badge badge-growing">Growing</span>
+        <p class="package-price">$350</p>
+        <p class="package-period">per month</p>
+        <div class="package-divider"></div>
+        <p class="package-includes">What's included</p>
+        <div class="package-items">
+          <div class="package-item">Social media management — up to 2 platforms</div>
+          <div class="package-item">5 custom graphics per month</div>
+          <div class="package-item">Basic web design support</div>
+          <div class="package-item">Captions, scheduling & posting</div>
+          <div class="package-item">Monthly analytics</div>
+        </div>
+        <a href="work-with-me.html" class="package-cta package-cta-growing">Get Started →</a>
+      </div>
+
+      <!-- BLOOMING -->
+      <div class="package-card card-blooming">
+        <span class="package-badge badge-blooming">Blooming</span>
+        <p class="package-price">$450</p>
+        <p class="package-period">per month</p>
+        <div class="package-divider"></div>
+        <p class="package-includes">What's included</p>
+        <div class="package-items">
+          <div class="package-item">Social media management — 2+ platforms</div>
+          <div class="package-item">10 custom graphics per month</div>
+          <div class="package-item">Ongoing web support & updates</div>
+          <div class="package-item">Captions, scheduling & posting</div>
+          <div class="package-item">Community engagement</div>
+          <div class="package-item">Priority turnaround</div>
+          <div class="package-item">Monthly analytics review</div>
+        </div>
+        <a href="work-with-me.html" class="package-cta package-cta-blooming">Get Started →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- À LA CARTE -->
+<section class="port-section">
+  <div class="section-inner">
+    <p class="section-label reveal">À La Carte</p>
+    <h2 class="section-title reveal">Just need <em>one thing?</em></h2>
+    <p class="section-desc reveal">Individual services for one-off projects and smaller needs.</p>
+
+    <table class="alacarte-table reveal">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="cat-row cat-social"><td colspan="2">Social Media</td></tr>
+        <tr><td>Engagement & community management</td><td class="price">$50/mo</td></tr>
+        <tr><td>Content calendar + captions</td><td class="price">$100/mo</td></tr>
+        <tr><td>Profile setup & optimization</td><td class="price">$100</td></tr>
+
+        <tr class="cat-row cat-graphic"><td colspan="2">Graphic Design</td></tr>
+        <tr><td>Social media graphic</td><td class="price">$25</td></tr>
+        <tr><td>Banner or cover image</td><td class="price">$25</td></tr>
+        <tr><td>Event flyer or poster</td><td class="price">$50</td></tr>
+        <tr><td>Canva template (reusable)</td><td class="price">$50</td></tr>
+        <tr><td>Logo or brand graphic</td><td class="price">$100</td></tr>
+
+        <tr class="cat-row cat-web"><td colspan="2">Web Design</td></tr>
+        <tr><td>Website audit & feedback</td><td class="price">$50</td></tr>
+        <tr><td>Monthly maintenance & updates</td><td class="price">$100/mo</td></tr>
+        <tr><td>Booking system setup</td><td class="price">$150</td></tr>
+        <tr><td>Basic landing page</td><td class="price">$200</td></tr>
+        <tr><td>Custom multi-page site</td><td class="price">$200/pg</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <h2>Not sure which <em>fits?</em></h2>
+  <p>Reach out and we'll figure it out together.</p>
+  <a href="work-with-me.html" class="btn btn-primary">Work With Me</a>
+</div>
+
+<footer>
+  <p>© 2025 Teija's Digital Support Space</p>
+  <p>@teijachamp</p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

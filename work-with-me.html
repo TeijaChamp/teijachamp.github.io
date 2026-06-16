@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work With Me — Teija's Digital Support Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --forest: #1E2D1F; --moss: #3D5C35; --sage: #7A9966;
+      --linen: #E8E2D5; --clay: #C4A882; --ink: #141A13;
+      --fog: #F0EBE1; --dusk: #2A3828;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--fog); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: rgba(20,26,19,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(122,153,102,0.15); flex-wrap: nowrap; gap: 1rem; }
+    .nav-name { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 400; letter-spacing: 0.05em; color: var(--linen); text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: nowrap; }
+    .nav-links a { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage); text-decoration: none; transition: color 0.2s; white-space: nowrap; }
+    .nav-links a:hover { color: var(--linen); }
+    .nav-links a.active { color: var(--clay); }
+
+    /* PAGE HEADER */
+    .page-header { background: var(--dusk); padding: 8rem 2rem 4rem; position: relative; overflow: hidden; min-height: 40vh; display: flex; align-items: flex-end; }
+    .page-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(61,92,53,0.3) 0%, transparent 60%), radial-gradient(ellipse 40% 60% at 10% 80%, rgba(196,168,130,0.1) 0%, transparent 50%); }
+    .page-header-inner { max-width: 960px; margin: 0 auto; position: relative; }
+    .eyebrow { font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--clay); margin-bottom: 0.85rem; }
+    .page-header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 7vw, 5rem); font-weight: 300; color: var(--linen); line-height: 1.05; }
+    .page-header h1 em { font-style: italic; color: var(--sage); }
+    .page-header .sub { margin-top: 1.25rem; font-size: 0.92rem; color: rgba(232,226,213,0.6); max-width: 48ch; line-height: 1.85; }
+
+    /* MAIN LAYOUT */
+    .main-section { padding: 6rem 3rem; }
+    .main-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* LEFT — what to expect */
+    .side-left { position: sticky; top: 7rem; }
+
+    .side-left h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 300;
+      color: var(--forest);
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+    .side-left h2 em { font-style: italic; color: var(--moss); }
+
+    .side-left p {
+      font-size: 0.9rem;
+      color: #3a3a35;
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+
+    .process-steps { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+    .step { display: flex; gap: 1rem; align-items: flex-start; }
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--clay);
+      font-weight: 400;
+      flex-shrink: 0;
+      width: 1.5rem;
+      line-height: 1.5;
+    }
+    .step-text { font-size: 0.86rem; color: #3a3a35; line-height: 1.7; }
+    .step-text strong { display: block; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--moss); margin-bottom: 0.2rem; font-weight: 500; }
+
+    /* FORM */
+    .form-wrap {
+      background: #fff;
+      border: 1px solid rgba(61,92,53,0.1);
+      border-radius: 3px;
+      padding: 3rem;
+    }
+
+    .form-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--forest);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-sub {
+      font-size: 0.84rem;
+      color: #5a5a52;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .field { margin-bottom: 1.75rem; }
+
+    .field label {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--moss);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--ink);
+      background: var(--fog);
+      border: 1px solid rgba(61,92,53,0.15);
+      border-radius: 2px;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: var(--sage);
+      background: #fff;
+    }
+
+    .field textarea { resize: vertical; min-height: 110px; }
+
+    .field select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A9966' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+
+    /* Checkbox group */
+    .checkbox-group { display: flex; flex-direction: column; gap: 0.6rem; }
+    .checkbox-item { display: flex; align-items: center; gap: 0.75rem; cursor: pointer; }
+    .checkbox-item input[type="checkbox"] {
+      width: 16px; height: 16px;
+      accent-color: var(--moss);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .checkbox-item span { font-size: 0.88rem; color: #3a3a35; line-height: 1.4; }
+
+    /* Two-col fields */
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+
+    /* Submit */
+    .form-submit { margin-top: 2.5rem; }
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      background: var(--forest);
+      color: var(--linen);
+      border: 1px solid var(--forest);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s;
+    }
+    .btn-submit:hover { background: var(--moss); border-color: var(--moss); }
+
+    /* Success message */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+    .success-msg h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--forest);
+      margin-bottom: 0.75rem;
+    }
+    .success-msg p { font-size: 0.9rem; color: #5a5a52; line-height: 1.8; }
+
+    /* FOOTER */
+    footer { background: var(--ink); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 0.8rem; color: rgba(122,153,102,0.7); letter-spacing: 0.05em; }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 768px) {
+      nav { padding: 0.85rem 1.25rem; } .nav-links { gap: 0.85rem; } .nav-name { font-size: 0.82rem; } .nav-links a { font-size: 0.62rem; letter-spacing: 0.06em; }
+      .page-header { padding: 7rem 1.5rem 4rem; }
+      .main-section { padding: 4rem 1.5rem; }
+      .field-row { grid-template-columns: 1fr; }
+      .form-wrap { padding: 2rem 1.5rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-name" href="teija-portfolio.html">Teija's Digital Support Space</a>
+  <ul class="nav-links">
+    <li><a href="teija-portfolio.html#about">About</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="work-with-me.html" class="active">Work With Me</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner" style="width:100%;">
+    <p class="eyebrow">Work With Me</p>
+    <h1>Let's figure it <em>out together.</em></h1>
+  </div>
+</div>
+
+<section class="main-section">
+  <div class="main-inner">
+
+    <!-- RIGHT: form -->
+    <div class="form-wrap reveal" id="formWrap">
+
+        <h3 class="form-heading">Tell me about yourself</h3>
+        <p class="form-sub">All fields marked with an asterisk are required.</p>
+
+        <form id="intakeForm" onsubmit="handleSubmit(event)" novalidate>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="name">Your name *</label>
+              <input type="text" id="name" name="name" placeholder="Teija" required />
+            </div>
+            <div class="field">
+              <label for="email">Email address *</label>
+              <input type="email" id="email" name="email" placeholder="hello@yourbrand.com" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="brand">Business or brand name</label>
+            <input type="text" id="brand" name="brand" placeholder="If you have one" />
+          </div>
+
+          <div class="field">
+            <label for="links">Website & social links</label>
+            <input type="text" id="links" name="links" placeholder="instagram.com/yourbrand, yourbrand.com…" />
+          </div>
+
+          <div class="field">
+            <label>Services you're interested in *</label>
+            <div class="checkbox-group">
+              <label class="checkbox-item"><input type="checkbox" name="services" value="Social Media Management" /><span>Social Media Management</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="services" value="Graphic Design" /><span>Graphic Design</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="services" value="Web Design" /><span>Web Design</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="services" value="Not sure yet" /><span>Not sure yet — open to talking it through</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="help">What are you looking for help with? *</label>
+            <textarea id="help" name="help" placeholder="Tell me about your brand, what you're working on, and what's feeling hard or overwhelming right now…" required></textarea>
+          </div>
+
+          <div class="field">
+            <label for="success">What does success look like for you?</label>
+            <textarea id="success" name="success" placeholder="More visibility? A consistent feed? A website that actually converts? Something else entirely?"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="timeline">Ideal timeline or start date</label>
+            <input type="text" id="timeline" name="timeline" placeholder="As soon as possible, next month, no rush…" />
+          </div>
+
+          <div class="field">
+            <label for="notes">Anything else I should know?</label>
+            <textarea id="notes" name="notes" placeholder="Budget, past experiences, things that matter to you — anything goes."></textarea>
+          </div>
+
+          <div class="form-submit">
+            <button type="submit" class="btn-submit">Send It Over →</button>
+          </div>
+
+        </form>
+
+        <!-- Success state -->
+        <div class="success-msg" id="successMsg">
+          <h3>You're all set.</h3>
+          <p>Thank you for reaching out — I'll be in touch within a few days. In the meantime, feel free to look through the <a href="portfolio.html" style="color:var(--moss);">portfolio</a> or check out the <a href="services.html" style="color:var(--moss);">services page</a> if you haven't already.</p>
+        </div>
+
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Teija's Digital Support Space</p>
+  <p>@teijachamp</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => obs.observe(el));
+
+  // Form submission
+  function handleSubmit(e) {
+    e.preventDefault();
+    const form = document.getElementById('intakeForm');
+
+    // Basic validation
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const help = form.help.value.trim();
+    const services = [...form.querySelectorAll('input[name="services"]:checked')].map(el => el.value);
+
+    if (!name || !email || !help || services.length === 0) {
+      alert('Please fill in all required fields and select at least one service.');
+      return;
+    }
+
+    // Build mailto link as a simple fallback delivery method
+    const subject = encodeURIComponent(`New Inquiry from ${name} — Teija's Digital Support Space`);
+    const body = encodeURIComponent(
+      `Name: ${name}\n` +
+      `Email: ${email}\n` +
+      `Brand: ${form.brand.value || 'Not provided'}\n` +
+      `Links: ${form.links.value || 'Not provided'}\n\n` +
+      `Services interested in:\n${services.map(s => `  - ${s}`).join('\n')}\n\n` +
+      `What they need help with:\n${help}\n\n` +
+      `What success looks like:\n${form.success.value || 'Not provided'}\n\n` +
+      `Timeline: ${form.timeline.value || 'Not provided'}\n\n` +
+      `Additional notes:\n${form.notes.value || 'Not provided'}`
+    );
+
+    window.location.href = `mailto:teijachamp@gmail.com?subject=${subject}&body=${body}`;
+
+    // Show success message
+    setTimeout(() => {
+      document.getElementById('intakeForm').style.display = 'none';
+      document.querySelector('.form-heading').style.display = 'none';
+      document.querySelector('.form-sub').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+    }, 500);
+  }
+</script>
+</body>
+</html>
