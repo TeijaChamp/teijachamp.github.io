@@ -298,6 +298,8 @@
     .btn { display: inline-block; padding: 0.9rem 2.25rem; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; border-radius: 1px; transition: all 0.25s; }
     .btn-primary { background: var(--clay); color: var(--ink); border: 1px solid var(--clay); }
     .btn-primary:hover { background: transparent; color: var(--clay); }
+    .btn-secondary { background: transparent; color: var(--linen); border: 1px solid var(--clay); margin-left: 1rem; }
+    .btn-secondary:hover { background: var(--clay); color: var(--ink); }
 
     /* FOOTER */
     footer { background: var(--ink); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
@@ -314,6 +316,10 @@
       .packages-grid { grid-template-columns: 1fr; }
       .alacarte-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .btn-secondary { margin-left: 0; margin-top: 1rem; display: block; }
     }
   </style>
 </head>
@@ -443,6 +449,7 @@
   <h2>Not sure which <em>fits?</em></h2>
   <p>Reach out and we'll figure it out together.</p>
   <a href="work-with-me.html" class="btn btn-primary">Work With Me</a>
+  <a href="https://cal.com/teija-sdigitalsupport/freesocialmediaconsultation" target="_blank" class="btn btn-secondary">Book a Free Consultation</a>
 </div>
 
 <footer>
