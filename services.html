@@ -290,6 +290,23 @@
       white-space: nowrap;
     }
 
+    /* TABS */
+    .tab-bar { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2.5rem; }
+    .tab-btn { font-family: 'DM Sans', sans-serif; min-height: 44px; padding: 0 1.6rem; font-size: 0.74rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--forest); background: transparent; border: 1px solid rgba(30,45,31,0.45); border-radius: 99px; cursor: pointer; transition: all 0.25s; }
+    .tab-btn:hover { border-color: var(--forest); background: rgba(61,92,53,0.08); }
+    .tab-btn.is-active { background: var(--forest); color: var(--linen); border-color: var(--forest); }
+    .tab-btn:focus-visible { outline: 2px solid var(--moss); outline-offset: 3px; }
+    .tab-panel { animation: panelIn 0.4s ease; }
+    .tab-panel[hidden] { display: none; }
+    .tab-panel .alacarte-table { margin-top: 0; }
+    @keyframes panelIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    /* TECH HELP TEASER */
+    .teaser-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+    .teaser .section-desc { margin-bottom: 0; }
+    .btn-forest { background: var(--forest); color: var(--linen); border: 1px solid var(--forest); }
+    .btn-forest:hover { background: var(--moss); border-color: var(--moss); }
+
     /* BOTTOM CTA */
     .bottom-cta { background: var(--forest); padding: 6rem 3rem; text-align: center; }
     .bottom-cta h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; color: var(--linen); line-height: 1.2; margin-bottom: 1rem; }
@@ -321,6 +338,14 @@
     @media (max-width: 480px) {
       .btn-secondary { margin-left: 0; margin-top: 1rem; display: block; }
     }
+
+    /* Four menu links no longer fit on one line on a phone, so stack the menu */
+    @media (max-width: 600px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem; }
+      .nav-links { gap: 1.1rem; flex-wrap: wrap; justify-content: center; }
+      .page-header { padding-top: 8rem; }
+      .tab-btn { flex: 1 1 auto; text-align: center; }
+    }
   </style>
 </head>
 <body>
@@ -330,6 +355,7 @@
   <ul class="nav-links">
     <li><a href="portfolio.html">Portfolio</a></li>
     <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="tech-help.html">Tech Help</a></li>
     <li><a href="work-with-me.html">Work With Me</a></li>
   </ul>
 </nav>
@@ -341,106 +367,124 @@
   </div>
 </div>
 
-<!-- PACKAGES -->
-<section class="port-section">
+<!-- PACKAGES + À LA CARTE (tabs) -->
+<section class="port-section" id="services">
   <div class="section-inner">
-    <p class="section-label reveal">Packages</p>
-    <h2 class="section-title reveal">Find your fit</h2>
-    <p class="section-desc reveal">Three tiers designed to grow with you — start where you are and build from there.</p>
+    <p class="section-label reveal">Social Media, Design &amp; Web</p>
 
-    <div class="packages-grid reveal">
+    <div class="tab-bar reveal" role="tablist" aria-label="Service options">
+      <button type="button" class="tab-btn is-active" role="tab" id="tab-packages" aria-controls="panel-packages" aria-selected="true" data-target="packages">Monthly Packages</button>
+      <button type="button" class="tab-btn" role="tab" id="tab-a-la-carte" aria-controls="panel-a-la-carte" aria-selected="false" tabindex="-1" data-target="a-la-carte">À La Carte</button>
+    </div>
 
-      <!-- SEEDLING -->
-      <div class="package-card card-seedling">
-        <span class="package-badge badge-seedling">Seedling</span>
-        <p class="package-price">$250</p>
-        <p class="package-period">per month</p>
-        <div class="package-divider"></div>
-        <p class="package-includes">What's included</p>
-        <div class="package-items">
-          <div class="package-item">Social media management — 1 platform</div>
-          <div class="package-item">2–3 custom graphics per month</div>
-          <div class="package-item">Captions, scheduling & posting</div>
-          <div class="package-item">Light monthly analytics</div>
+    <!-- Tab 1: packages -->
+    <div class="tab-panel" id="panel-packages" role="tabpanel" aria-labelledby="tab-packages">
+      <h2 class="section-title">Find your fit</h2>
+      <p class="section-desc">Three tiers designed to grow with you — start where you are and build from there.</p>
+
+      <div class="packages-grid">
+
+        <!-- SEEDLING -->
+        <div class="package-card card-seedling">
+          <span class="package-badge badge-seedling">Seedling</span>
+          <p class="package-price">$250</p>
+          <p class="package-period">per month</p>
+          <div class="package-divider"></div>
+          <p class="package-includes">What's included</p>
+          <div class="package-items">
+            <div class="package-item">Social media management — 1 platform</div>
+            <div class="package-item">2–3 custom graphics per month</div>
+            <div class="package-item">Captions, scheduling & posting</div>
+            <div class="package-item">Light monthly analytics</div>
+          </div>
+          <a href="work-with-me.html" class="package-cta package-cta-seedling">Get Started →</a>
         </div>
-        <a href="work-with-me.html" class="package-cta package-cta-seedling">Get Started →</a>
-      </div>
 
-      <!-- GROWING -->
-      <div class="package-card card-growing">
-        <span class="package-badge badge-growing">Growing</span>
-        <p class="package-price">$350</p>
-        <p class="package-period">per month</p>
-        <div class="package-divider"></div>
-        <p class="package-includes">What's included</p>
-        <div class="package-items">
-          <div class="package-item">Social media management — up to 2 platforms</div>
-          <div class="package-item">5 custom graphics per month</div>
-          <div class="package-item">Basic web design support</div>
-          <div class="package-item">Captions, scheduling & posting</div>
-          <div class="package-item">Monthly analytics</div>
+        <!-- GROWING -->
+        <div class="package-card card-growing">
+          <span class="package-badge badge-growing">Growing</span>
+          <p class="package-price">$350</p>
+          <p class="package-period">per month</p>
+          <div class="package-divider"></div>
+          <p class="package-includes">What's included</p>
+          <div class="package-items">
+            <div class="package-item">Social media management — up to 2 platforms</div>
+            <div class="package-item">5 custom graphics per month</div>
+            <div class="package-item">Basic web design support</div>
+            <div class="package-item">Captions, scheduling & posting</div>
+            <div class="package-item">Monthly analytics</div>
+          </div>
+          <a href="work-with-me.html" class="package-cta package-cta-growing">Get Started →</a>
         </div>
-        <a href="work-with-me.html" class="package-cta package-cta-growing">Get Started →</a>
-      </div>
 
-      <!-- BLOOMING -->
-      <div class="package-card card-blooming">
-        <span class="package-badge badge-blooming">Blooming</span>
-        <p class="package-price">$450</p>
-        <p class="package-period">per month</p>
-        <div class="package-divider"></div>
-        <p class="package-includes">What's included</p>
-        <div class="package-items">
-          <div class="package-item">Social media management — 2+ platforms</div>
-          <div class="package-item">10 custom graphics per month</div>
-          <div class="package-item">Ongoing web support & updates</div>
-          <div class="package-item">Captions, scheduling & posting</div>
-          <div class="package-item">Community engagement</div>
-          <div class="package-item">Priority turnaround</div>
-          <div class="package-item">Monthly analytics review</div>
+        <!-- BLOOMING -->
+        <div class="package-card card-blooming">
+          <span class="package-badge badge-blooming">Blooming</span>
+          <p class="package-price">$450</p>
+          <p class="package-period">per month</p>
+          <div class="package-divider"></div>
+          <p class="package-includes">What's included</p>
+          <div class="package-items">
+            <div class="package-item">Social media management — 2+ platforms</div>
+            <div class="package-item">10 custom graphics per month</div>
+            <div class="package-item">Ongoing web support & updates</div>
+            <div class="package-item">Captions, scheduling & posting</div>
+            <div class="package-item">Community engagement</div>
+            <div class="package-item">Priority turnaround</div>
+            <div class="package-item">Monthly analytics review</div>
+          </div>
+          <a href="work-with-me.html" class="package-cta package-cta-blooming">Get Started →</a>
         </div>
-        <a href="work-with-me.html" class="package-cta package-cta-blooming">Get Started →</a>
-      </div>
 
+      </div>
+    </div>
+
+    <!-- Tab 2: à la carte -->
+    <div class="tab-panel" id="panel-a-la-carte" role="tabpanel" aria-labelledby="tab-a-la-carte" hidden>
+      <h2 class="section-title">Just need <em>one thing?</em></h2>
+      <p class="section-desc">Individual services for one-off projects and smaller needs.</p>
+
+      <table class="alacarte-table">
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="cat-row cat-social"><td colspan="2">Social Media</td></tr>
+          <tr><td>Engagement & community management</td><td class="price">$50/mo</td></tr>
+          <tr><td>Content calendar + captions</td><td class="price">$100/mo</td></tr>
+          <tr><td>Profile setup & optimization</td><td class="price">$100</td></tr>
+
+          <tr class="cat-row cat-graphic"><td colspan="2">Graphic Design</td></tr>
+          <tr><td>Social media graphic</td><td class="price">$25</td></tr>
+          <tr><td>Banner or cover image</td><td class="price">$25</td></tr>
+          <tr><td>Event flyer or poster</td><td class="price">$50</td></tr>
+          <tr><td>Canva template (reusable)</td><td class="price">$50</td></tr>
+          <tr><td>Logo or brand graphic</td><td class="price">$100</td></tr>
+
+          <tr class="cat-row cat-web"><td colspan="2">Web Design</td></tr>
+          <tr><td>Website audit & feedback</td><td class="price">$50</td></tr>
+          <tr><td>Monthly maintenance & updates</td><td class="price">$100/mo</td></tr>
+          <tr><td>Booking system setup</td><td class="price">$150</td></tr>
+          <tr><td>Basic landing page</td><td class="price">$200</td></tr>
+          <tr><td>Custom multi-page site</td><td class="price">$200/pg</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
-<!-- À LA CARTE -->
-<section class="port-section">
-  <div class="section-inner">
-    <p class="section-label reveal">À La Carte</p>
-    <h2 class="section-title reveal">Just need <em>one thing?</em></h2>
-    <p class="section-desc reveal">Individual services for one-off projects and smaller needs.</p>
-
-    <table class="alacarte-table reveal">
-      <thead>
-        <tr>
-          <th>Service</th>
-          <th>Rate</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="cat-row cat-social"><td colspan="2">Social Media</td></tr>
-        <tr><td>Engagement & community management</td><td class="price">$50/mo</td></tr>
-        <tr><td>Content calendar + captions</td><td class="price">$100/mo</td></tr>
-        <tr><td>Profile setup & optimization</td><td class="price">$100</td></tr>
-
-        <tr class="cat-row cat-graphic"><td colspan="2">Graphic Design</td></tr>
-        <tr><td>Social media graphic</td><td class="price">$25</td></tr>
-        <tr><td>Banner or cover image</td><td class="price">$25</td></tr>
-        <tr><td>Event flyer or poster</td><td class="price">$50</td></tr>
-        <tr><td>Canva template (reusable)</td><td class="price">$50</td></tr>
-        <tr><td>Logo or brand graphic</td><td class="price">$100</td></tr>
-
-        <tr class="cat-row cat-web"><td colspan="2">Web Design</td></tr>
-        <tr><td>Website audit & feedback</td><td class="price">$50</td></tr>
-        <tr><td>Monthly maintenance & updates</td><td class="price">$100/mo</td></tr>
-        <tr><td>Booking system setup</td><td class="price">$150</td></tr>
-        <tr><td>Basic landing page</td><td class="price">$200</td></tr>
-        <tr><td>Custom multi-page site</td><td class="price">$200/pg</td></tr>
-      </tbody>
-    </table>
+<!-- TECH HELP TEASER (full details live on tech-help.html) -->
+<section class="port-section alt teaser">
+  <div class="section-inner teaser-inner reveal">
+    <div>
+      <p class="section-label">New offering</p>
+      <h2 class="section-title">Tech Help for seniors &amp; beginners</h2>
+      <p class="section-desc">Patient, one-on-one help with phones, scams, video calls, and more. $30 an hour, with a free consultation to start.</p>
+    </div>
+    <a href="tech-help.html" class="btn btn-forest">Learn more →</a>
   </div>
 </section>
 
@@ -464,6 +508,34 @@
     });
   }, { threshold: 0.1 });
   reveals.forEach(el => obs.observe(el));
+
+  // Tabs: Monthly Packages / À La Carte (also opens from services.html#a-la-carte)
+  const tabs = [...document.querySelectorAll('.tab-btn')];
+  function showTab(id, updateHash) {
+    tabs.forEach(t => {
+      const on = t.dataset.target === id;
+      t.classList.toggle('is-active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+    });
+    document.querySelectorAll('.tab-panel').forEach(p => { p.hidden = (p.id !== 'panel-' + id); });
+    if (updateHash) history.replaceState(null, '', '#' + id);
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => showTab(t.dataset.target, true));
+    t.addEventListener('keydown', e => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      next.focus();
+      showTab(next.dataset.target, true);
+    });
+  });
+  function openFromHash() {
+    const h = location.hash.slice(1);
+    if (h === 'packages' || h === 'a-la-carte') showTab(h, false);
+  }
+  openFromHash();
+  window.addEventListener('hashchange', openFromHash);
 </script>
 </body>
 </html>
