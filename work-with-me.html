@@ -214,6 +214,29 @@
       nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem; }
       .nav-links { gap: 1.1rem; flex-wrap: wrap; justify-content: center; }
     }
+      /* Bigger, consistent nav text on every page */
+    .nav-name { font-size: 1.75rem; letter-spacing: 0.06em; }
+    .nav-links { gap: 2.5rem; }
+    .nav-links a { font-size: 1.25rem; letter-spacing: 0.08em; }
+    @media (max-width: 1240px) {
+      .nav-name { font-size: 1.4rem; }
+      .nav-links { gap: 1.75rem; }
+      .nav-links a { font-size: 1.05rem; }
+    }
+    @media (max-width: 1000px) {
+      .nav-name { font-size: 1.15rem; }
+      .nav-links { gap: 1.25rem; }
+      .nav-links a { font-size: 0.9rem; letter-spacing: 0.06em; }
+    }
+    @media (max-width: 760px) {
+      nav { flex-direction: column; gap: 0.35rem; padding: 0.7rem 1rem; }
+      .nav-links { flex-wrap: wrap; justify-content: center; }
+    }
+    @media (max-width: 600px) {
+      .nav-name { font-size: 1.25rem; }
+      .nav-links { gap: 0.4rem 1.1rem; }
+      .nav-links a { font-size: 1rem; }
+    }
   </style>
 </head>
 <body>
