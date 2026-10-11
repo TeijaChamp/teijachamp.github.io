@@ -64,7 +64,10 @@
     .tech-consult { background: var(--fog); border: 1px solid var(--clay); border-radius: 3px; padding: 2.5rem 2.25rem; display: flex; flex-direction: column; align-items: flex-start; }
     .tech-consult .offer-label { color: var(--moss); }
     .tech-consult h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; color: var(--forest); line-height: 1.2; margin-bottom: 0.75rem; }
-    .tech-consult p { font-size: 1rem; color: #3a3a35; line-height: 1.75; margin-bottom: 1.75rem; flex: 1; }
+    #rates .section-desc { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 300; line-height: 1.2; max-width: none; color: var(--forest); margin-bottom: 2.5rem; }
+    .tech-consult p { font-size: 1rem; color: #3a3a35; line-height: 1.75; margin-bottom: 1.25rem; }
+    .tech-consult .consult-contact a { color: var(--forest); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+    .tech-consult .consult-book { flex: 1; margin-bottom: 1rem; font-weight: 500; color: var(--forest); }
 
     /* HOW IT WORKS */
     .tech-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; margin-bottom: 3.5rem; }
@@ -173,7 +176,7 @@
         <div class="tech-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg></div>
         <div>
           <h3>Device setup &amp; troubleshooting</h3>
-          <p>New phones, tablets, laptops, Wi-Fi, printers, and the “why did my screen change” moments.</p>
+          <p>New phones, tablets, laptops, Wi-Fi, and printers.</p>
         </div>
       </div>
 
@@ -181,7 +184,7 @@
         <div class="tech-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.2 6.8L21 12l-6.8 2.2L12 21l-2.2-6.8L3 12l6.8-2.2z"/></svg></div>
         <div>
           <h3>Helpful tools &amp; apps</h3>
-          <p>Simple ways AI and other programs can actually make your life easier.</p>
+          <p>Simple ways AI and other programs can help make your life easier, without becoming dependent on them.</p>
         </div>
       </div>
 
@@ -192,9 +195,7 @@
 <!-- RATE + FREE CONSULTATION -->
 <section class="port-section alt" id="rates">
   <div class="section-inner">
-    <p class="section-label reveal">Rate</p>
-    <h2 class="section-title reveal">Simple, <em>honest</em> pricing</h2>
-    <p class="section-desc reveal">One hourly rate. Book only the time you need.</p>
+    <p class="section-desc reveal">One hourly rate, book only the time you need</p>
 
     <div class="tech-offer reveal">
       <div class="tech-rate">
@@ -204,8 +205,10 @@
       </div>
       <div class="tech-consult" id="consult">
         <p class="offer-label">Start here</p>
-        <h3>Free tech consultation</h3>
-        <p>Not sure what you need? Let’s talk it through together. A free consultation to get you started and see what you need help with. We’ll meet virtually, by phone call or video, whichever you prefer.</p>
+        <h3>FREE tech consultation</h3>
+        <p>Not sure what you need? Let’s talk it through together. A FREE consultation to get you started and see what you need help with. We’ll meet virtually, by phone call or video, whichever you prefer.</p>
+        <p class="consult-contact">Call or text my number at <a href="tel:+14582980737">458-298-0737</a> during business hours or email me at <a href="mailto:teijachamp@gmail.com">teijachamp@gmail.com</a></p>
+        <p class="consult-book">Prefer to book a time with me right now?</p>
         <a href="https://cal.com/teija-sdigitalsupport/freesocialmediaconsultation" target="_blank" rel="noopener" class="btn btn-forest">Book your free consultation</a>
       </div>
     </div>
@@ -238,7 +241,7 @@
         <div class="step-num">3</div>
         <div>
           <h3>Leave with a cheat sheet</h3>
-          <p>Large-print, step-by-step reminders so what you learned sticks.</p>
+          <p>I will create large print step by step notes for what we went over during your session.</p>
         </div>
       </div>
     </div>
