@@ -214,7 +214,19 @@
 
     
 
-    /* À LA CARTE TABLE */
+    /* À LA CARTE: ONE HOURLY RATE + LIST OF OPTIONS */
+    #panel-a-la-carte .section-desc { font-size: 1.05rem; max-width: 720px; }
+    .hourly-rate { background: var(--forest); color: var(--linen); border-radius: 3px; padding: 1.1rem 1.5rem; margin: 0 auto 1.25rem; max-width: 720px; text-align: center; }
+    .hourly-rate p { font-size: 1.15rem; color: rgba(232,226,213,0.9); line-height: 1.5; }
+    .hourly-rate strong { font-weight: 500; color: var(--clay); }
+    .hourly-grid { display: flex; flex-direction: column; gap: 1rem; max-width: 720px; margin: 0 auto; }
+    .hourly-card { border: 1px solid rgba(61,92,53,0.12); border-radius: 3px; overflow: hidden; background: var(--fog); }
+    .hourly-cat { text-align: center; padding: 1rem 1.25rem; font-size: 0.9rem; letter-spacing: 0.2em; text-transform: uppercase; background: linear-gradient(90deg, #556b45 0%, #96b07e 100%); color: rgba(232,226,213,0.95); }
+    .hourly-card ul { list-style: none; padding: 0.5rem 1.5rem 0.75rem; margin: 0; }
+    .hourly-card li { text-align: left; padding: 1rem 0; border-bottom: 1px solid rgba(61,92,53,0.1); font-size: 1.15rem; color: #2e3d28; line-height: 1.5; }
+    .hourly-card li:last-child { border-bottom: none; }
+
+    /* À LA CARTE TABLE (no longer used) */
     .alacarte-table {
       width: 100%;
       border-collapse: separate;
@@ -442,36 +454,38 @@
     <!-- Tab 2: à la carte -->
     <div class="tab-panel" id="panel-a-la-carte" role="tabpanel" aria-labelledby="tab-a-la-carte" hidden>
       <h2 class="section-title">Just need <em>one thing?</em></h2>
-      <p class="section-desc">Individual services for one-off projects and smaller needs.</p>
+      <p class="section-desc">Pick what you need, each service is billed at an hourly rate of $30 per hour</p>
 
-      <table class="alacarte-table">
-        <thead>
-          <tr>
-            <th>Service</th>
-            <th>Rate</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="cat-row cat-social"><td colspan="2">Social Media</td></tr>
-          <tr><td>Engagement & community management</td><td class="price">$50/mo</td></tr>
-          <tr><td>Content calendar + captions</td><td class="price">$100/mo</td></tr>
-          <tr><td>Profile setup & optimization</td><td class="price">$100</td></tr>
-
-          <tr class="cat-row cat-graphic"><td colspan="2">Graphic Design</td></tr>
-          <tr><td>Social media graphic</td><td class="price">$25</td></tr>
-          <tr><td>Banner or cover image</td><td class="price">$25</td></tr>
-          <tr><td>Event flyer or poster</td><td class="price">$50</td></tr>
-          <tr><td>Canva template (reusable)</td><td class="price">$50</td></tr>
-          <tr><td>Logo or brand graphic</td><td class="price">$100</td></tr>
-
-          <tr class="cat-row cat-web"><td colspan="2">Web Design</td></tr>
-          <tr><td>Website audit & feedback</td><td class="price">$50</td></tr>
-          <tr><td>Monthly maintenance & updates</td><td class="price">$100/mo</td></tr>
-          <tr><td>Booking system setup</td><td class="price">$150</td></tr>
-          <tr><td>Basic landing page</td><td class="price">$200</td></tr>
-          <tr><td>Custom multi-page site</td><td class="price">$200/pg</td></tr>
-        </tbody>
-      </table>
+      <div class="hourly-grid">
+        <div class="hourly-card">
+          <p class="hourly-cat cat-social">Social Media</p>
+          <ul>
+          <li>Engagement &amp; community management</li>
+          <li>Content calendar + captions</li>
+          <li>Profile setup &amp; optimization</li>
+          </ul>
+        </div>
+        <div class="hourly-card">
+          <p class="hourly-cat cat-graphic">Graphic Design</p>
+          <ul>
+          <li>Social media graphic</li>
+          <li>Banner or cover image</li>
+          <li>Event flyer or poster</li>
+          <li>Canva template (reusable)</li>
+          <li>Logo or brand graphic</li>
+          </ul>
+        </div>
+        <div class="hourly-card">
+          <p class="hourly-cat cat-web">Web Design</p>
+          <ul>
+          <li>Website audit &amp; feedback</li>
+          <li>Monthly maintenance &amp; updates</li>
+          <li>Booking system setup</li>
+          <li>Basic landing page</li>
+          <li>Custom multi-page site</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </section>
